@@ -1,16 +1,19 @@
-const mongoose = require('mongoose');
+const pgp = require('pg-promise')();
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/address', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('MongoDB connected');
-  } catch (error) {
-    console.error('MongoDB connection failed:', error.message);
-    process.exit(1);
-  }
+
+    const dbConfig = {
+      user: 'postgres',
+      password: 'root',
+      database: 'addressbook',
+      host: '127.0.0.1',
+      port: 5432
+    };
+    const db = pgp(dbConfig);
+const callStoredProcedure = async (procedureName, ...args) => {
+  const result = await db.func(procedureName, ...args);
+  return result;
+}
+
+module.exports = {
+  callStoredProcedure
 };
-
-module.exports = connectDB;

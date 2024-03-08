@@ -36,7 +36,10 @@ let AddressList = () => {
     }, []);
 
     let clickDelete = (addressId) => {
+        const confirm = prompt("Are you sure you want to delete this address?" + " " + "Type 'yes' to confirm or 'no' to cancel");
+
         async function fetchData() {
+
         try {
             let response = await AddressService.deleteAddress(addressId);
             if(response){
@@ -59,7 +62,13 @@ let AddressList = () => {
             });
         }
     }
+    if(confirm.toLowerCase()==="yes"){
         fetchData();
+        
+    }else{
+        return;
+    
+    }
 
     }
 
@@ -104,13 +113,13 @@ let AddressList = () => {
                                                                         Name : <span className="fw-bolder">{address.name}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        House No : <span className="fw-bolder">{address.houseNo}</span>
+                                                                        House No : <span className="fw-bolder">{address.houseno}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Building Name : <span className="fw-bolder">{address.buildingName}</span>
+                                                                        Building Name : <span className="fw-bolder">{address.buildingname}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Street Address : <span className="fw-bolder">{address.streetAddress}</span>
+                                                                        Street Address : <span className="fw-bolder">{address.streetaddress}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
                                                                         City : <span className="fw-bolder">{address.city}</span>
@@ -119,19 +128,19 @@ let AddressList = () => {
                                                                         State : <span className="fw-bolder">{address.state}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Zip Code : <span className="fw-bolder">{address.zipCode}</span>
+                                                                        Zip Code : <span className="fw-bolder">{address.zipcode}</span>
                                                                     </li>
                                                                    
                                                                 </ul>
                                                             </div>
                                                             <div className="col-md-1 d-flex flex-column align-items-center">
-                                                                <Link to={`/addresses/view/${address._id}`} className="btn btn-primary my-1">
+                                                                <Link to={`/addresses/view/${address.id}`} className="btn btn-primary my-1">
                                                                     <i className="fa fa-eye" />
                                                                 </Link>
-                                                                <Link to={`/addresses/edit/${address._id}`} className="btn btn-warning my-1">
+                                                                <Link to={`/addresses/edit/${address.id}`} className="btn btn-warning my-1">
                                                                     <i className="fa fa-pen" />
                                                                 </Link>
-                                                                <button className="btn btn-danger my-1" onClick={() => clickDelete(address._id)}>
+                                                                <button className="btn btn-danger my-1" onClick={() => clickDelete(address.id)}>
                                                                     <i className="fa fa-trash" />
                                                                 </button>
                                                             </div>

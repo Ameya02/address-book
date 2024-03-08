@@ -65,13 +65,13 @@ let ViewAddress = () => {
                                                                         Name : <span className="fw-bolder">{address.name}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        House No : <span className="fw-bolder">{address.houseNo}</span>
+                                                                        House No : <span className="fw-bolder">{address.houseno}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Building Name : <span className="fw-bolder">{address.buildingName}</span>
+                                                                        Building Name : <span className="fw-bolder">{address.buildingname}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Street Address : <span className="fw-bolder">{address.streetAddress}</span>
+                                                                        Street Address : <span className="fw-bolder">{address.streetaddress}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
                                                                         City : <span className="fw-bolder">{address.city}</span>
@@ -80,7 +80,7 @@ let ViewAddress = () => {
                                                                         State : <span className="fw-bolder">{address.state}</span>
                                                                     </li>
                                                                     <li className="list-group-item list-group-item-action">
-                                                                        Zip Code : <span className="fw-bolder">{address.zipCode}</span>
+                                                                        Zip Code : <span className="fw-bolder">{address.zipcode}</span>
                                                                     </li>
                                                                    
                                                                 </ul>

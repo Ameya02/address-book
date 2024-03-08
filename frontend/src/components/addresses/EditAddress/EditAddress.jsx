@@ -12,12 +12,12 @@ let EditAddress = () => {
         loading: false,
         address: {
             name : '',
-            houseNo : '',
-            buildingName : '',
-            streetAddress : '',
+            houseNn : '',
+            buildingname : '',
+            streetaddress : '',
             city : '',
             state : '',
-            zipCode: '',
+            zipcode: '',
 
         },
         errorMessage: ''
@@ -31,7 +31,7 @@ let EditAddress = () => {
                 setState({
                     ...state,
                     loading: false,
-                    address: response.data,
+                    address: response.data[0],
                 });
             }
             catch (error) {
@@ -40,6 +40,7 @@ let EditAddress = () => {
                     loading: false,
                     errorMessage: error.message
                 });
+
             }
         }
         fetchData();
@@ -97,13 +98,14 @@ let EditAddress = () => {
                                         name="name"
                                         value={address.name}
                                         onChange = {updateInput}
+                                        readOnly
                                         type="text" className="form-control" placeholder="Name"/>
                                 </div>
                                 <div className="mb-2">
                                     <input 
                                         required={true} 
                                         name="houseNo"
-                                        value={address.houseNo}
+                                        value={address.houseno}
                                         onChange = {updateInput}
                                         type="text" className="form-control" placeholder="House No"/>
                                 </div>
@@ -111,7 +113,7 @@ let EditAddress = () => {
                                     <input 
                                         required={true} 
                                         name="buildingName"
-                                        value={address.buildingName}
+                                        value={address.buildingname}
                                         onChange = {updateInput}
                                         type="text" className="form-control" placeholder="Building Name"/>
                                 </div>
@@ -119,7 +121,7 @@ let EditAddress = () => {
                                     <input 
                                         required={true} 
                                         name="streetAddress"
-                                        value={address.streetAddress}
+                                        value={address.streetaddress}
                                         onChange = {updateInput}
                                         type="text" className="form-control" placeholder="Street Address"/>
                                 </div>
@@ -143,7 +145,7 @@ let EditAddress = () => {
                                     <input 
                                         required={true} 
                                         name="zipCode"
-                                        value={address.zipCode}
+                                        value={address.zipcode}
                                         onChange = {updateInput}
                                         type="text" className="form-control" placeholder="Zip Code"/>
                                 </div>

@@ -1,10 +1,10 @@
+const { callStoredProcedure } = require('../config/db');
 const Address = require('../models/addressModels');
 
 
 // Create async createAddress route
 const createAddress = async (req, res) => {
   try {
-    // Get the necessary input from the request body
     const { name, houseNo, buildingName, streetAddress, city, state, zipCode } = req.body;
 
     // Check if the input is not empty
@@ -12,17 +12,12 @@ const createAddress = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Create a new address object
-    const newAddress = await Address.create({
-      name, houseNo, buildingName, streetAddress, city, state, zipCode
-    });
-
-  
-
-    // Return a success response
+   
+    const values = Object.values(req.body);
+    await callStoredProcedure('add_address', values);
     return res.status(201).json({ message: 'Address created successfully' });
+
   } catch (error) {
-    // Handle any errors that occur during the process
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
@@ -33,7 +28,6 @@ const createAddress = async (req, res) => {
 // Create async updateAddress route
 const updateAddress = async (req, res) => {
   try {
-    // Get the necessary input from the request body
     const { name, houseNo, buildingName, streetAddress, city, state, zipCode } = req.body;
 
     // Check if the input is not empty
@@ -41,9 +35,9 @@ const updateAddress = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Update the address in the database
-    await Address.updateOne({ _id: req.params.id }, { $set: { name, houseNo, buildingName, streetAddress, city, state, zipCode} });
-
+    const values = Object.values(req.body);
+    values.push(req.params.id);
+    await callStoredProcedure('update_address', values);
     // Return a success response
     return res.status(200).json({ message: 'Address updated successfully' });
   } catch (error) {
@@ -57,7 +51,7 @@ const updateAddress = async (req, res) => {
 const deleteAddress = async (req, res) => {
   try {
     // Delete the address from the database
-    await Address.deleteOne({ _id: req.params.id });
+    await callStoredProcedure('delete_address', req.params.id);
 
     // Return a success response
     return res.status(200).json({ message: 'Address deleted successfully' });
@@ -70,7 +64,8 @@ const deleteAddress = async (req, res) => {
 
 const getAddresses = async (req, res) => {
   try {
-    const addresses = await Address.find();
+
+    const addresses = await callStoredProcedure('get_all_addresses');
     return res.status(200).json(addresses);
   } catch (error) {
     console.error(error);
@@ -81,7 +76,7 @@ const getAddresses = async (req, res) => {
 
 const getAddressID = async (req, res) => {
   try {
-    const address = await Address.findById(req.params.id);
+    const address = await callStoredProcedure('get_address_by_id', req.params.id);
     return res.status(200).json(address);
   } catch (error) {
     console.error(error);
